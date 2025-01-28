@@ -59,8 +59,8 @@ export default function PokemonGenerations() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 p-8">
-      <div className="mx-auto max-w-6xl">
+    <div className="h-screen bg-gradient-to-br from-yellow-50 to-orange-50 p-8 overflow-y-hidden">
+      <div className="mx-auto max-w-6xl overflow-y-hidden">
         <h1 className="mb-12 text-5xl font-bold text-center text-yellow-800 drop-shadow-lg">
           Pokémon Generations
         </h1>
@@ -73,7 +73,7 @@ export default function PokemonGenerations() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <Link href={`/generation${number}`}>
-                <Card className="relative overflow-visible group cursor-pointer bg-gradient-to-br from-yellow-400 to-yellow-300 border-yellow-500 shadow-lg hover:shadow-2xl transition-all duration-300 p-6">
+                <Card className="relative overflow-visible group m-5 cursor-pointer bg-gradient-to-br from-yellow-400 to-yellow-300 border-yellow-500 shadow-lg hover:shadow-2xl transition-all duration-300 p-6">
                   <div className="absolute -top-8 -right-4 w-32 h-32 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-2">
                     <div className="relative w-full h-full animate-float">
                       <Image
