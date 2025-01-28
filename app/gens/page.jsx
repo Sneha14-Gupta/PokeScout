@@ -3,6 +3,11 @@
 import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import  Link  from "next/link";
+
+function handleClick(e) {
+  let value = e.currentTarget.dataset.value;
+}
 
 export default function PokemonGenerations() {
   const generations = [
@@ -49,8 +54,7 @@ export default function PokemonGenerations() {
     {
       number: 9,
       pokemon: "Miraidon",
-      image:
-        "https://img.pokemondb.net/sprites/home/normal/miraidon.png",
+      image: "https://img.pokemondb.net/sprites/home/normal/miraidon.png",
     },
   ];
 
@@ -68,35 +72,34 @@ export default function PokemonGenerations() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="relative overflow-visible group cursor-pointer bg-gradient-to-br from-yellow-400 to-yellow-300 border-yellow-500 shadow-lg hover:shadow-2xl transition-all duration-300 p-6">
-                <div className="absolute -top-8 -right-4 w-32 h-32 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-2">
-                  <div className="relative w-full h-full animate-float">
-                    <Image
-                      src={image || "/placeholder.svg"}
-                      alt={`Generation ${number} - ${pokemon}`}
-                      fill
-                      className="object-contain drop-shadow-2xl"
-                    />
+              <Link href={`/generation${number}`}>
+                <Card className="relative overflow-visible group cursor-pointer bg-gradient-to-br from-yellow-400 to-yellow-300 border-yellow-500 shadow-lg hover:shadow-2xl transition-all duration-300 p-6">
+                  <div className="absolute -top-8 -right-4 w-32 h-32 transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-2">
+                    <div className="relative w-full h-full animate-float">
+                      <Image
+                        src={image || "/placeholder.svg"}
+                        alt={`Generation ${number} - ${pokemon}`}
+                        fill
+                        sizes="100vh"
+                        className="object-contain drop-shadow-2xl"
+                      />
+                    </div>
                   </div>
-                </div>
 
-                <div className="relative z-10">
-                  <div className="bg-yellow-200/50 rounded-lg p-2 backdrop-blur-sm w-fit mb-2">
-                    <span className="text-sm font-semibold text-yellow-900">
-                      Generation
-                    </span>
-                  </div>
-                  <h2 className="text-4xl font-bold text-yellow-900 mb-1">
-                    {number}
-                  </h2>
-                  <p className="text-lg font-medium text-yellow-800">
-                    {pokemon}
-                  </p>
-
-                  <div className="absolute bottom-2 left-2 w-12 h-12 bg-yellow-200 rounded-full opacity-20" />
-                  <div className="absolute top-2 right-2 w-8 h-8 bg-yellow-500 rounded-full opacity-20" />
-                </div>
-              </Card>
+                  <button className="relative z-10 text-left">
+                    <h2 className="text-4xl font-bold text-yellow-900 mb-1">
+                      {number}
+                    </h2>
+                    <div className="bg-yellow-200/50 rounded-lg p-2 backdrop-blur-sm w-fit mb-2">
+                      <span className="text-sm font-semibold text-yellow-900">
+                        Generation
+                      </span>
+                    </div>
+                    <div className="absolute bottom-2 left-2 w-12 h-12 bg-yellow-200 rounded-full opacity-20" />
+                    <div className="absolute top-2 right-2 w-8 h-8 bg-yellow-500 rounded-full opacity-20" />
+                  </button>
+                </Card>
+              </Link>
             </motion.div>
           ))}
         </div>
