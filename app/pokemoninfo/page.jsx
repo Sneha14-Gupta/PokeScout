@@ -7,18 +7,15 @@ export default async function PokemonInfo() {
   const data = await res.json();
   const id = data.id;
   const name = capitalize(data.name);
-  if (data.types.length === 2) {
-    const types = {
-      type1: data.types[0].type.name,
-      type2: data.types[1].type.name,
-    };
-  } else {
-    const types = {
-      type1: data.types[0].type.name,
-    };
-  }
+
+  // Extracting types safely
+  const type1 = data.types?.[0]?.type.name;
+  const type2 = data.types?.[1]?.type.name;
+  const types = type2 ? [type1, type2] : [type1];
+
   const height = data.height;
   const weight = data.weight;
+
   let base_stat_name = {
     hp: data.stats[0].stat.name,
     attack: data.stats[1].stat.name,
@@ -27,6 +24,7 @@ export default async function PokemonInfo() {
     specialDefense: data.stats[4].stat.name,
     speed: data.stats[5].stat.name,
   };
+
   let base_stat = {
     hp: data.stats[0].base_stat,
     attack: data.stats[1].base_stat,
@@ -49,13 +47,19 @@ export default async function PokemonInfo() {
             sizes="100vh"
             width={300}
             height={300}
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/160.svg"
-            alt="pokemonName"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
+            alt={name}
           />
         </div>
         <div className="w-1/4">
-          <p>{types.type1}</p>
-          <p>{types.type2}</p>
+          {/* Render types only if they exist */}
+          {types.length > 0 && (
+            <>
+              {types.map((type, index) => (
+                <p key={index}>{type}</p>
+              ))}
+            </>
+          )}
           <p>{height}</p>
           <p>{weight}</p>
           <p>{base_stat_name.hp}</p>
