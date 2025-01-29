@@ -11,7 +11,7 @@ function Header() {
           width={180}
           sizes="100"
           alt="logo"
-          className="drop-shadow-2xl"
+          className="drop-shadow-2xl hidden md:block"
         ></Image>
         <Image
           src="/images/rotom.png"
@@ -19,7 +19,7 @@ function Header() {
           width={80}
           sizes="100"
           alt="logo"
-          className="drop-shadow-2xl"
+          className="drop-shadow-2xl hidden md:block"
         ></Image>
       </section>
     </div>

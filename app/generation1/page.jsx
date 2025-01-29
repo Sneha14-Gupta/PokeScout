@@ -175,11 +175,11 @@ export default function PokemonLayout() {
         </DropdownMenu>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 -z-50 place-items-center">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 place-items-center">
         {filteredPokemon.map((pokemon) => (
           <Card
             key={pokemon.id}
-            className="rounded-3xl relative h-44 w-96 m-4 md:w-72 md:h-48 lg:h-44 lg:w-96 cursor-pointer bg-gradient-to-br from-yellow-400 to-yellow-300 border-yellow-500 shadow-lg hover:shadow-2xl transition-all duration-300"
+            className="rounded-3xl relative h-44 w-72 m-4 md:w-72 md:h-48 lg:h-44 lg:w-96 cursor-pointer bg-gradient-to-br from-yellow-400 to-yellow-300 border-yellow-500 shadow-lg hover:shadow-2xl transition-all duration-300"
           >
             <CardContent className="p-0">
               <div className="flex items-center">
@@ -192,7 +192,7 @@ export default function PokemonLayout() {
                   </h2>
                   <div className="text-sm flex flex-wrap gap-2">
                     {pokemon.types.map((type, index) => {
-                      console.log("Type:", type); // Check the type value
+                      // Check the type value
                       return (
                         <p
                           key={index}
