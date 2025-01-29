@@ -5,10 +5,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import  Link  from "next/link";
 
-function handleClick(e) {
-  let value = e.currentTarget.dataset.value;
-}
-
 export default function PokemonGenerations() {
   const generations = [
     {
