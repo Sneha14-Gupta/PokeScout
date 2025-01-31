@@ -47,72 +47,81 @@ export default async function PokemonInfo() {
   };
 
   return (
-    <div className="h-screen bg-zinc-600 px-5 space-y-6 mx-auto max-w-6xl overflow-y-hidden">
-      <Header />
+    <div className="min-h-screen md:w-full bg-[#47565b] px-5 space-y-6 mx-auto  ">
       <section className="flex flex-col justify-start">
-        <div className="md:w-1/4 mb-8">
-          <p className="text-xs">#{id}</p>
-          <h1 className="font-extrabold text-xl">{name}</h1>
+        <div className="md:w-1/4 mb-8 md:ml-8 md:gap-2 md:flex md:flex-col md:mt-12 ">
+          <p className="text-xs md:text-lg md:font-medium text-white">#{id}</p>
+          <h1 className="font-extrabold text-xl md:text-4xl text-white">
+            {name}
+          </h1>
         </div>
-
-        <div className="md:w-2/4 flex flex-col justify-center">
-          <div className="flex gap-4">
-            <p className="text-xs font-bold shadow-inner p-1.5 rounded-md bg-white">
+        <div className="md:flex md:flex-row md:gap-4 md:justify-center">
+          <div className="flex  md:flex-col md:w-fit ">
+            <p className="text-xs text-white font-bold shadow-inner p-1.5 rounded-md bg-white md:bg-transparent md:mt-52 md:mr-40 md:text-lg ">
               Height: {height}m
             </p>
-            <p className="text-xs font-bold shadow-inner p-1.5 rounded-md bg-white">
+            <p className="text-xs font-bold text-white shadow-inner p-1.5 rounded-md bg-white md:bg-transparent  md:text-lg  ">
               Weight: {weight}kg
             </p>
           </div>
-          <Image
-            sizes="100vh"
-            width={500}
-            height={500}
-            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
-            alt={name}
-            className="mt-5 mb-4"
-          />
-        </div>
-        <div className="md:w-1/4 flex flex-col justify-center items-center gap-2">
-          {types.length > 0 && (
-            <>
-              {types.map((type, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-center gap-1 bg-white text-sm font-bold w-fit mb-5 px-2 py-1 rounded-md"
-                >
-                  <Image
-                    src={icons[type]}
-                    alt={type}
-                    width={30}
-                    height={30}
-                    sizes="100vh"
-                    className="inline"
-                  />
-                  <p className="font-bold text-xl">{capitalize(type)}</p>
-                </div>
-              ))}
-            </>
-          )}
-          <div className="flex flex-wrap gap-2 justify-center">
-            <p className="w-1/4 text-center text-xs bg-white font-bold px-2 py-1 rounded-md">
-              HP: {base_stat.hp}
-            </p>
-            <p className="text-xs text-center bg-white font-bold w-fit px-2 py-1 rounded-md">
-              ATTACK: {base_stat.attack}
-            </p>
-            <p className="text-xs text-center bg-white font-bold w-fit px-2 py-1 rounded-md">
-              DEFENSE: {base_stat.defense}
-            </p>
-            <p className="text-xs text-center bg-white font-bold w-fit px-2 py-1 rounded-md">
-              SP. ATTACK: {base_stat.specialAttack}
-            </p>
-            <p className="text-xs text-center bg-white font-bold w-fit px-2 py-1 rounded-md">
-              SP. DEFENSE: {base_stat.specialDefense}
-            </p>
-            <p className="text-xs text-center bg-white font-bold w-fit px-2 py-1 rounded-md">
-              SPEED: {base_stat.speed}
-            </p>
+          <div className="md:flex ">
+            <Image
+              sizes="100vh"
+              width={500}
+              height={500}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
+              alt={name}
+              className="mt-5 mb-4 md:w-96 md:h-96 md:mr-44 "
+            />
+          </div>
+          <div className="md:w-1/4 flex flex-col justify-center items-center gap-2 md:flex  md:items-start">
+            {types.length > 0 && (
+              <>
+                {types.map((type, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-center gap-1 bg-white md:bg-transparent text-sm font-bold w-fit mb-5 px-2 py-1 rounded-md "
+                  >
+                    <Image
+                      src={icons[type]}
+                      alt={type}
+                      width={30}
+                      height={30}
+                      sizes="100vh"
+                      className="inline md:h-16 md:w-16 bg-white rounded-full p-2"
+                    />
+                    <div className="md:flex md:flex-cols">
+                      <p className="font-bold text-xl md:hidden  ">
+                        {capitalize(type)}
+                      </p>
+                      <p className="font-bold text-xs md:text-lg  ">
+                        Base Stats: {base_stat[type]}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+            <div className="flex flex-wrap gap-4 justify-center md:flex md:justify-start md:gap-4">
+              <p className="w-1/4 text-center text-lg bg-white font-bold px-3 py-1 rounded-md">
+                HP: {base_stat.hp}
+              </p>
+              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+                ATTACK: {base_stat.attack}
+              </p>
+              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+                DEFENSE: {base_stat.defense}
+              </p>
+              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+                SP. ATTACK: {base_stat.specialAttack}
+              </p>
+              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+                SP. DEFENSE: {base_stat.specialDefense}
+              </p>
+              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+                SPEED: {base_stat.speed}
+              </p>
+            </div>
           </div>
         </div>
       </section>
