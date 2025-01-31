@@ -55,7 +55,7 @@ export default function PokemonGenerations() {
   ];
 
   return (
-    <div className="h-screen bg-gradient-to-br from-yellow-50 to-orange-50 p-8 overflow-y-hidden">
+    <div className="h-screen bg-gradient-to-br from-yellow-50 to-orange-50 p-5">
       <div className="mx-auto max-w-6xl overflow-y-hidden">
         <h1 className="mb-12 text-5xl font-bold text-center text-yellow-800 drop-shadow-lg">
           Pokémon Generations

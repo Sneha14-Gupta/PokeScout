@@ -14,7 +14,7 @@ function Home() {
           height={200}
           width={400}
           alt="pokemon logo"
-          className="mb-10 mt-40"
+          className="mb-10 mt-40 animate-bounce motion-safe:animate-[bounce_1s_infinite]"
         ></Image>
         <Button variant="destructive" onClick={()=>router.push("/gens")}>Get Started</Button>
       </div>
