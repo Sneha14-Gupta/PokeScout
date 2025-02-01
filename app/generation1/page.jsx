@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Fuse from "fuse.js";
 import InfoPageHeader from "@/components/InfoPageHeader";
-import { fetchPokemonData } from "@/lib/pokemonData"; // Import fetch function
+import { fetchPokemonByGeneration } from "@/lib/pokemonData"; // Import fetch function
 
 const typeColors = {
   normal: ["#A8A77A", "#C6C6A7"],
@@ -68,22 +68,22 @@ export default function PokemonLayout() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const [pokeId, setPokeId] = useState(1);
-
-  function changePokeId(id) {
-    setPokeId(id);
-  }
-
   useEffect(() => {
-    async function loadPokemon() {
+    const loadPokemon = async (genNumber) => {
       setLoading(true);
-      const { detailedPokemon, images } = await fetchPokemonData();
-      setPokemonList(detailedPokemon);
-      setPokemonImages(images);
-      setLoading(false);
-    }
+      try {
+        const { detailedPokemon, images } =
+          await fetchPokemonByGeneration(genNumber);
+        setPokemonList(detailedPokemon);
+        setPokemonImages(images);
+      } catch (error) {
+        console.error("Error loading Pokémon:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    loadPokemon();
+    loadPokemon(1); // Here you're passing the generation number (1) as an argument.
   }, []);
 
   const fuse = useMemo(() => {

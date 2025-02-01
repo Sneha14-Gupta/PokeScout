@@ -2,6 +2,27 @@ import capitalize from "capitalize";
 import Image from "next/image";
 import { toMeter, toKilo } from "@/lib/converter";
 
+const typeColors = {
+  normal: ["#A8A77A", "#C6C6A7"],
+  fire: ["#EE8130", "#F5AC78"],
+  water: ["#6390F0", "#9DB7F5"],
+  electric: ["#F7D02C", "#FAE078"],
+  grass: ["#7AC74C", "#A7DB8D"],
+  ice: ["#96D9D6", "#BCE6E6"],
+  fighting: ["#C22E28", "#D67873"],
+  poison: ["#A33EA1", "#C183C1"],
+  ground: ["#E2BF65", "#EBD69D"],
+  flying: ["#A98FF3", "#C6B7F5"],
+  psychic: ["#F95587", "#FA92B2"],
+  bug: ["#A6B91A", "#C6D16E"],
+  rock: ["#B6A136", "#D1C17D"],
+  ghost: ["#735797", "#A292BC"],
+  dragon: ["#6F35FC", "#A27DFA"],
+  dark: ["#705746", "#A29288"],
+  steel: ["#B7B7CE", "#D1D1E0"],
+  fairy: ["#D685AD", "#F4BDC9"],
+};
+
 const icons = {
   normal: "/images/icons/Normal.png",
   fire: "/images/icons/Fire.png",
@@ -23,8 +44,9 @@ const icons = {
   fairy: "/images/icons/Fairy.png",
 };
 
-export default async function PokemonInfo({ id }) {
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/1/`);
+export default async function PokemonInfo({ params }) {
+  const { id } = params;
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
   const data = await res.json();
   const pokemonId = data.id;
   const name = capitalize(data.name);
@@ -44,9 +66,15 @@ export default async function PokemonInfo({ id }) {
     specialDefense: data.stats[4].base_stat,
     speed: data.stats[5].base_stat,
   };
+  const backgroundStyle = {
+    background:
+      types.length === 2
+        ? `linear-gradient(135deg, ${typeColors[types[0]][0]} 50%, ${typeColors[types[1]][0]} 50%)`
+        : typeColors[types[0]][0], // Solid color if there's only one type
+  };
 
   return (
-    <div className="mx-auto min-h-screen space-y-6 bg-[#47565b] px-5 py-10 md:w-full">
+    <div className="mx-auto min-h-screen space-y-6 px-5 py-10 md:w-full" style={backgroundStyle}>
       <section className="flex flex-col justify-start">
         <div className="mb-8 md:ml-8 md:mt-12 md:flex md:w-1/4 md:flex-col md:gap-2">
           <p className="text-xs text-white md:text-2xl md:font-medium">
