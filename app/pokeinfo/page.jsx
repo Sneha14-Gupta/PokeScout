@@ -1,5 +1,4 @@
 import capitalize from "capitalize";
-import Header from "@/components/Header";
 import Image from "next/image";
 import { toMeter, toKilo } from "@/lib/converter";
 
@@ -24,10 +23,10 @@ const icons = {
   fairy: "/images/icons/Fairy.png",
 };
 
-export default async function PokemonInfo() {
-  const res = await fetch("https://pokeapi.co/api/v2/pokemon/197/");
+export default async function PokemonInfo({ id }) {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/1/`);
   const data = await res.json();
-  const id = data.id;
+  const pokemonId = data.id;
   const name = capitalize(data.name);
 
   const type1 = data.types?.[0]?.type.name;
@@ -47,78 +46,82 @@ export default async function PokemonInfo() {
   };
 
   return (
-    <div className="min-h-screen md:w-full bg-[#47565b] px-5 space-y-6 mx-auto  ">
+    <div className="mx-auto min-h-screen space-y-6 bg-[#47565b] px-5 py-10 md:w-full">
       <section className="flex flex-col justify-start">
-        <div className="md:w-1/4 mb-8 md:ml-8 md:gap-2 md:flex md:flex-col md:mt-12 ">
-          <p className="text-xs md:text-lg md:font-medium text-white">#{id}</p>
-          <h1 className="font-extrabold text-xl md:text-4xl text-white">
+        <div className="mb-8 md:ml-8 md:mt-12 md:flex md:w-1/4 md:flex-col md:gap-2">
+          <p className="text-xs text-white md:text-2xl md:font-medium">
+            #{pokemonId}
+          </p>
+          <h1 className="text-xl font-extrabold text-white md:text-4xl">
             {name}
           </h1>
         </div>
-        <div className="md:flex md:flex-row md:gap-4 md:justify-center">
-          <div className="flex  md:flex-col md:w-fit ">
-            <p className="text-xs text-white font-bold shadow-inner p-1.5 rounded-md bg-white md:bg-transparent md:mt-52 md:mr-40 md:text-lg ">
-              Height: {height}m
+        <div className="md:flex md:flex-row md:justify-center md:gap-4">
+          <div className="flex flex-col md:w-fit md:flex-col">
+            <p className="rounded-md p-1 text-lg font-semibold text-white md:mr-40 md:mt-52 md:bg-transparent md:text-lg">
+              Height: {height.toFixed(1)}m
             </p>
-            <p className="text-xs font-bold text-white shadow-inner p-1.5 rounded-md bg-white md:bg-transparent  md:text-lg  ">
-              Weight: {weight}kg
+            <p className="rounded-md p-1 text-lg font-semibold text-white md:bg-transparent md:text-lg">
+              Weight: {weight.toFixed(1)}kg
             </p>
           </div>
-          <div className="md:flex ">
+          <div className="md:flex">
             <Image
               sizes="100vh"
               width={500}
               height={500}
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`}
               alt={name}
-              className="mt-5 mb-4 md:w-96 md:h-96 md:mr-44 "
+              className="mb-4 mt-5 md:mr-44 md:h-96 md:w-96"
             />
           </div>
-          <div className="md:w-1/4 flex flex-col justify-center items-center gap-2 md:flex  md:items-start">
-            {types.length > 0 && (
-              <>
-                {types.map((type, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-center gap-1 bg-white md:bg-transparent text-sm font-bold w-fit mb-5 px-2 py-1 rounded-md "
-                  >
-                    <Image
-                      src={icons[type]}
-                      alt={type}
-                      width={30}
-                      height={30}
-                      sizes="100vh"
-                      className="inline md:h-16 md:w-16 bg-white rounded-full p-2"
-                    />
-                    <div className="md:flex md:flex-cols">
-                      <p className="font-bold text-xl md:hidden  ">
-                        {capitalize(type)}
-                      </p>
-                      <p className="font-bold text-xs md:text-lg  ">
-                        Base Stats: {base_stat[type]}
-                      </p>
+          <div className="flex flex-col items-center justify-center gap-2 md:flex md:w-1/4 md:items-start">
+            <div className="flex">
+              {types.length > 0 && (
+                <>
+                  {types.map((type, index) => (
+                    <div
+                      key={index}
+                      className="mb-5 flex w-fit items-center justify-center gap-1 rounded-md bg-white px-2 py-1 text-sm font-bold md:bg-transparent"
+                    >
+                      <Image
+                        src={icons[type]}
+                        alt={type}
+                        width={30}
+                        height={30}
+                        sizes="100vh"
+                        className="inline rounded-full bg-white md:h-16 md:w-16 md:p-2"
+                      />
+                      <div className="md:flex-cols md:flex">
+                        <p className="text-xl font-bold md:hidden">
+                          {capitalize(type)}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </>
-            )}
-            <div className="flex flex-wrap gap-4 justify-center md:flex md:justify-start md:gap-4">
-              <p className="w-1/4 text-center text-lg bg-white font-bold px-3 py-1 rounded-md">
+                  ))}
+                </>
+              )}
+            </div>
+            <p className="mb-6 w-full text-4xl font-extrabold text-white">
+              Base Stats:
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 border-l-4 pl-4 md:flex md:justify-start md:gap-4">
+              <p className="md:text-md w-fit rounded-md bg-white px-3 py-1 text-center text-sm font-bold text-[#585858]">
                 HP: {base_stat.hp}
               </p>
-              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+              <p className="md:text-md w-fit rounded-md bg-white px-3 py-1 text-center text-sm font-bold text-[#585858]">
                 ATTACK: {base_stat.attack}
               </p>
-              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+              <p className="md:text-md w-fit rounded-md bg-white px-3 py-1 text-center text-sm font-bold text-[#585858]">
                 DEFENSE: {base_stat.defense}
               </p>
-              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+              <p className="md:text-md w-fit rounded-md bg-white px-3 py-1 text-center text-sm font-bold text-[#585858]">
                 SP. ATTACK: {base_stat.specialAttack}
               </p>
-              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+              <p className="md:text-md w-fit rounded-md bg-white px-3 py-1 text-center text-sm font-bold text-[#585858]">
                 SP. DEFENSE: {base_stat.specialDefense}
               </p>
-              <p className="text-lg text-center bg-white font-bold w-fit px-3 py-1 rounded-md">
+              <p className="md:text-md w-fit rounded-md bg-white px-3 py-1 text-center text-sm font-bold text-[#585858]">
                 SPEED: {base_stat.speed}
               </p>
             </div>

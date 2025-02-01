@@ -68,6 +68,12 @@ export default function PokemonLayout() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const [pokeId, setPokeId] = useState(1);
+
+  function changePokeId(id) {
+    setPokeId(id);
+  }
+
   useEffect(() => {
     async function loadPokemon() {
       setLoading(true);
@@ -98,8 +104,8 @@ export default function PokemonLayout() {
       (pokemon) =>
         sortByType === "all" ||
         pokemon.types.some(
-          (type) => type.toLowerCase() === sortByType.toLowerCase()
-        )
+          (type) => type.toLowerCase() === sortByType.toLowerCase(),
+        ),
     );
 
     return result.sort((a, b) => {
@@ -113,7 +119,7 @@ export default function PokemonLayout() {
   }, [pokemonList, searchTerm, sortByType, sortByNumber, fuse]);
 
   return (
-    <div className="w-full overflow-x-hidden container mx-auto px-4 md:px-10 space-y-6 bg-yellow-300 p-4 min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50">
+    <div className="container mx-auto min-h-screen w-full space-y-6 overflow-x-hidden bg-yellow-300 bg-gradient-to-br from-yellow-50 to-orange-50 p-4 px-4 md:px-10">
       {loading && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <video
@@ -121,22 +127,22 @@ export default function PokemonLayout() {
             autoPlay
             loop
             muted
-            className="w-40 h-40"
+            className="h-40 w-40"
           ></video>
         </div>
       )}
       <InfoPageHeader generation={1} />
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8 pl-5 md:pl-10">
-        <div className="w-80 md:w-1/2 relative mr-12">
+      <div className="mb-8 flex flex-col items-center justify-between gap-4 pl-5 md:flex-row md:pl-10">
+        <div className="relative mr-12 w-80 md:w-1/2">
           <div className="relative">
             <Input
               type="text"
               placeholder="Search Pokémon by Name or Number"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 w-80 md:w-96 border-2 border-yellow-400 rounded-full focus:outline-none focus:border-yellow-500 transition-colors"
+              className="w-80 rounded-full border-2 border-yellow-400 py-2 pl-10 pr-4 transition-colors focus:border-yellow-500 focus:outline-none md:w-96"
             />
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 transform text-yellow-500" />
           </div>
         </div>
         <div className="flex items-center gap-4 pr-6 md:pr-12">
@@ -144,9 +150,9 @@ export default function PokemonLayout() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
-                className="w-[120px] sm:w-[200px] bg-gradient-to-br from-yellow-400 to-yellow-300 border-yellow-500"
+                className="w-[120px] border-yellow-500 bg-gradient-to-br from-yellow-400 to-yellow-300 sm:w-[200px]"
               >
-                <ArrowUpDown className="mr-2 h-4 w-4 " />
+                <ArrowUpDown className="mr-2 h-4 w-4" />
                 Sort by
               </Button>
             </DropdownMenuTrigger>
@@ -169,7 +175,7 @@ export default function PokemonLayout() {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
-                className="w-[120px] sm:w-[200px] bg-gradient-to-br from-yellow-400 to-yellow-300 border-yellow-500"
+                className="w-[120px] border-yellow-500 bg-gradient-to-br from-yellow-400 to-yellow-300 sm:w-[200px]"
               >
                 <ArrowUpDown className="mr-2 h-4 w-4" />
                 Sort by Type
@@ -196,48 +202,49 @@ export default function PokemonLayout() {
         </div>
       </div>
       <div
-        className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  place-items-center "
+        className="grid grid-cols-1 place-items-center gap-4 sm:grid-cols-2 lg:grid-cols-3"
         onLoadedData={() => setLoading(false)}
       >
         {filteredPokemon.map((pokemon) => (
           <Card
             key={pokemon.id}
-            className="rounded-3xl relative h-44 w-72 md:w-72 md:h-48 lg:h-44 lg:w-96 cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300"
+            className="relative h-44 w-72 cursor-pointer rounded-3xl shadow-lg transition-all duration-300 hover:shadow-2xl md:h-48 md:w-72 lg:h-44 lg:w-96"
             style={{
               background: `linear-gradient(135deg, ${
                 typeColors[pokemon.types[0]][0]
               } 0%, ${typeColors[pokemon.types[0]][1]} 100%)`,
             }}
           >
-            <Link href="/pokeinfo">
+            {/* Update Link to include the dynamic id */}
+            <Link href={`/pokeinfo/${pokemon.id}`}>
               <CardContent className="p-0">
-                <div className="flex items-center h-full">
-                  <div className="w-2/3 p-4 space-y-2">
-                    <h2 className="text-lg font-medium capitalize text-white mb-10">
+                <div className="flex h-full items-center">
+                  <div className="w-2/3 space-y-2 p-4">
+                    <h2 className="mb-10 text-lg font-medium capitalize text-white">
                       #{pokemon.id}
                     </h2>
-                    <h2 className="text-lg font-medium capitalize text-white ">
+                    <h2 className="text-lg font-medium capitalize text-white">
                       {pokemon.name}
                     </h2>
-                    <div className="text-sm flex flex-wrap gap-2 mt-8">
+                    <div className="mt-8 flex flex-wrap gap-2 text-sm">
                       {pokemon.types.map((type, index) => (
                         <p
                           key={index}
-                          className="py-1.5 px-3 rounded-lg font-semibold capitalize text-white bg-black bg-opacity-20"
+                          className="rounded-lg bg-black bg-opacity-20 px-3 py-1.5 font-semibold capitalize text-white"
                         >
                           {type}
                         </p>
                       ))}
                     </div>
                   </div>
-                  <div className="aspect-square absolute -right-2 -top-1 h-40 w-40 animate-bounce">
+                  <div className="absolute -right-2 -top-1 aspect-square h-40 w-40 animate-bounce">
                     {pokemonImages[pokemon.id] && (
                       <Image
                         src={pokemonImages[pokemon.id] || "/placeholder.svg"}
                         alt={pokemon.name}
                         fill
                         sizes="100vh"
-                        className="p-4 absolute drop-shadow-2xl"
+                        className="absolute p-4 drop-shadow-2xl"
                       />
                     )}
                   </div>
