@@ -6,13 +6,13 @@ export default function InfoPageHeader({ generation }) {
   return (
     <div className="flex justify-between items-center">
       <section>
-        <div>
+        {/* <div>
           <h1 className="text-xl md:text-4xl font-bold text-center">
             Pokémon Generation {generation}
           </h1>
-        </div>
+        </div> */}
         <div>
-          <h2 className="md:text-2xl font-semibold text-center md:text-left">
+          <h2 className="text-xl md:text-4xl font-light solid">
             Gotta Catch 'Em All!
           </h2>
         </div>
