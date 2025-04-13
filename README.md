@@ -6,30 +6,44 @@ A sleek, modern Pokédex web app built with **Next.js**, **React 19**, and **Tai
 
 ## 🚀 Features
 
-- 🔍 Instant search with fuzzy matching (Fuse.js)
-- 🎨 Auto color extraction using ColorThief
-- 🎞️ Smooth animations with Framer Motion
-- 🌗 Clean UI with Headless UI, Heroicons, and Lucide React
-- 📱 Fully responsive and mobile-friendly design
-- ⚡ Fast performance with Next.js App Router
+- 🔍 Instant fuzzy search with **Fuse.js**
+- 🎨 Dynamic color extraction using **ColorThief**
+- 🎞️ Seamless transitions and animations via **Framer Motion**
+- 🌗 Clean UI built with **Headless UI**, **Radix UI**, **Heroicons**, and **Lucide React**
+- 📱 Fully responsive design with mobile-first principles
+- ⚡ High performance using **Next.js App Router** and optimizations
+- 🧠 Intelligent sorting, filtering, and user interaction patterns
+- ♿ Accessible components using Radix and Headless UI standards
+- 🧩 Modular and reusable component structure
+- 🧪 ESLint and Prettier integrated for consistent code quality
 
 ---
 
 ## 📦 Tech Stack
 
-- **Framework:** Next.js (v15.1.4)
-- **Styling:** Tailwind CSS + Tailwind CSS Animate + Prettier plugin
-- **UI Components:** Headless UI, Radix UI, Heroicons, Lucide
-- **Animation:** Framer Motion
-- **Utilities:** Fuse.js (fuzzy search), ColorThief, clsx, class-variance-authority
-- **ESLint + Prettier** for clean code
+| Category        | Tech Used                                                                 |
+|----------------|----------------------------------------------------------------------------|
+| Framework       | [Next.js](https://nextjs.org/) v15.1.4                                    |
+| Language        | React 19 with JSX/TSX                                                     |
+| Styling         | [Tailwind CSS](https://tailwindcss.com/), Tailwind Animate                |
+| Icons           | [Heroicons](https://heroicons.com/), [Lucide](https://lucide.dev/)        |
+| Animation       | [Framer Motion](https://www.framer.com/motion/)                           |
+| UI Components   | [Radix UI](https://www.radix-ui.com/), [Headless UI](https://headlessui.com/) |
+| Search          | [Fuse.js](https://fusejs.io/) for instant fuzzy search                    |
+| Utilities       | `clsx`, `class-variance-authority`, `capitalize`, `colorthief`            |
+| Code Quality    | ESLint, Prettier, prettier-plugin-tailwindcss                             |
 
 ---
 
-## 🛠 Setup & Installation
-
-1. **Clone the repository**
+## 🛠 Installation & Setup
 
 ```bash
-git clone https://github.com/your-username/pokedex.git
-cd pokedex
+# Clone the repo
+git clone https://[github.com//pokescout.git](https://github.com/Sneha14-Gupta/PokeScout)
+cd pokescout
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
