@@ -1,4 +1,4 @@
-# 🧭 Pokedex
+# 🧭 Pokescout
 
 A sleek, modern Pokédex web app built with **Next.js**, **React 19**, and **Tailwind CSS**. Explore Pokémon data, search and filter by name or type, and enjoy smooth animations with Framer Motion.
 
